@@ -125,10 +125,16 @@ for container in $options; do
   compose_backup_path="${new_backup_dir}/docker-compose.yml"
 
   if [[ "$stack_id" =~ ^[0-9]+$ ]]; then
-    # Get the compose file using the stackID | Used when stack_id is a number and thus a portainer stack
-    compose_file_path="${portainer_data}/compose/${stack_id}/docker-compose.yml"
-    compose_data=$(cat "${compose_file_path}")
+    if [[ -z $portainer_data ]] || [[ -z "$portainer_data" ]]; then
+      echo "Container found with stack ID: $stack_id but portainer_data is not defined. Skipping compose file..."
+    else
+      echo "Grabbed compose file"
+      # Get the compose file using the stackID | Used when stack_id is a number and thus a portainer stack
+      compose_file_path="${portainer_data}/compose/${stack_id}/docker-compose.yml"
+      compose_data=$(cat "${compose_file_path}")
+    fi
   else 
+    echo "Grabbed compose file"
     # Get the compose file using the config_files_label | Used when the container is made outside of Portainer
     compose_data=$(cat "${config_files_label}")
   fi
@@ -136,8 +142,15 @@ for container in $options; do
   echo "${compose_data}" > "${compose_backup_path}"
 
   # Changing permission of the backup dir to chosen user.
-  chown -R $user:$group $new_backup_dir
-
+  if [ "$group" != "" ]; then
+    if [ "$user" != "" ]; then
+      chown -R $user:$group $new_backup_dir
+    fi
+  else
+    if [ "$user" != "" ]; then
+      chown -R $user $new_backup_dir
+    fi
+  fi
 
   backup_dir_container="${backup_dir}/${container}"
   for dir in "$backup_dir_container"/*; do
