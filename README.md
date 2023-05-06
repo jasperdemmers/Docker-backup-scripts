@@ -1,6 +1,6 @@
 
 # Docker-backup-scripts
-A script that creates backups for your docker containers. Simply make a cron task running the script daily, weekly, monthly or even yearly. The script backs up al volumes mounted to a container (even bind mounts), exports the container itself and backs up the docker-compose file if one exists.
+A script that creates backups for your docker containers. Simply make a cron task running the script daily, weekly, monthly or even yearly. The script backs up al volumes mounted to a container (even bind mounts), exports the container itself and backs up the docker-compose file if one exists. Made using ChatGPT and my knowledge.
 
 ## Features
 - Backs up compose files, even when using portainer stacks
