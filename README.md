@@ -10,6 +10,9 @@ A script that creates backups for your docker containers. Simply make a cron tas
 - Delete backups after set amount of days
 - Give a user and/or group access to the backup using chown
 
+### Notes
+- Script must be run as **root** to prevent permission problems.
+
 ## Usage
 There are a few variables that can be changes to your likings:
 
