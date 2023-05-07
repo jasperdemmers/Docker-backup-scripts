@@ -24,3 +24,33 @@ There are a few variables that can be changes to your likings:
 | `group` | `jdemmers` | Group to have access to the backups. User is required |
 
 By default al variables are defined. If you want to disable it, like portainer_data, tag out the line.
+
+## Installation
+1. Download the script
+```bash
+  git clone jasperdemmers/Docker-backup-scripts
+```
+2. Edit the script for your environment (Check [usage](#usage))
+```bash
+  nano /path/to/your/backup-containers.sh
+```
+3. Make script executable
+```bash
+  chmod +x /path/to/your/backup-containers.sh
+```
+3. Execute the script
+  - Setup the first-time install
+  - Check if it works
+```bash
+  bash /path/to/your/backup-containers.sh
+```
+4. Create enty in crontab to run on a schedule
+```bash
+  sudo crontab -e
+```
+Add the following line to the end
+
+```bash
+  0 0 * * 0 /path/to/your/backup-containers.sh
+```
+**Note that /path/to/your/script.sh should be replaced with the actual path to the script.**
